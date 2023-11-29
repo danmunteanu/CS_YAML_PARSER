@@ -1,6 +1,6 @@
 ﻿namespace C__Yaml_Parser
 {
-    partial class Form1
+    partial class frmMain
     {
         /// <summary>
         ///  Required designer variable.
@@ -34,10 +34,10 @@
             chkMarkdown = new CheckBox();
             tableLayoutPanel1 = new TableLayoutPanel();
             listFiles = new ListBox();
-            label1 = new Label();
+            lblFileName = new Label();
             txtFileName = new TextBox();
             tableLayoutPanel2 = new TableLayoutPanel();
-            groupBox1 = new GroupBox();
+            grpYaml = new GroupBox();
             btnDefaults = new Button();
             btnClear = new Button();
             lblDate = new Label();
@@ -50,12 +50,12 @@
             lblLayout = new Label();
             lblAuthor = new Label();
             lblTitle = new Label();
-            textBox1 = new TextBox();
+            txtContents = new TextBox();
             lblContents = new Label();
             btnSave = new Button();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
-            groupBox1.SuspendLayout();
+            grpYaml.SuspendLayout();
             SuspendLayout();
             // 
             // lblFolder
@@ -126,14 +126,14 @@
             listFiles.TabIndex = 5;
             listFiles.SelectedIndexChanged += listFiles_SelectedIndexChanged;
             // 
-            // label1
+            // lblFileName
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(3, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(94, 25);
-            label1.TabIndex = 6;
-            label1.Text = "File Name:";
+            lblFileName.AutoSize = true;
+            lblFileName.Location = new Point(3, 0);
+            lblFileName.Name = "lblFileName";
+            lblFileName.Size = new Size(94, 25);
+            lblFileName.TabIndex = 6;
+            lblFileName.Text = "File Name:";
             // 
             // txtFileName
             // 
@@ -148,7 +148,7 @@
             tableLayoutPanel2.ColumnCount = 2;
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 19.29499F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 80.70501F));
-            tableLayoutPanel2.Controls.Add(label1, 0, 0);
+            tableLayoutPanel2.Controls.Add(lblFileName, 0, 0);
             tableLayoutPanel2.Controls.Add(txtFileName, 1, 0);
             tableLayoutPanel2.Location = new Point(453, 96);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -157,26 +157,26 @@
             tableLayoutPanel2.Size = new Size(680, 55);
             tableLayoutPanel2.TabIndex = 8;
             // 
-            // groupBox1
+            // grpYaml
             // 
-            groupBox1.Controls.Add(btnDefaults);
-            groupBox1.Controls.Add(btnClear);
-            groupBox1.Controls.Add(lblDate);
-            groupBox1.Controls.Add(txtDate);
-            groupBox1.Controls.Add(txtLayout);
-            groupBox1.Controls.Add(txtAuthor);
-            groupBox1.Controls.Add(txtTitle);
-            groupBox1.Controls.Add(lblCategs);
-            groupBox1.Controls.Add(chkListCategs);
-            groupBox1.Controls.Add(lblLayout);
-            groupBox1.Controls.Add(lblAuthor);
-            groupBox1.Controls.Add(lblTitle);
-            groupBox1.Location = new Point(456, 157);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(677, 343);
-            groupBox1.TabIndex = 9;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Yaml Data (FrontMatter)";
+            grpYaml.Controls.Add(btnDefaults);
+            grpYaml.Controls.Add(btnClear);
+            grpYaml.Controls.Add(lblDate);
+            grpYaml.Controls.Add(txtDate);
+            grpYaml.Controls.Add(txtLayout);
+            grpYaml.Controls.Add(txtAuthor);
+            grpYaml.Controls.Add(txtTitle);
+            grpYaml.Controls.Add(lblCategs);
+            grpYaml.Controls.Add(chkListCategs);
+            grpYaml.Controls.Add(lblLayout);
+            grpYaml.Controls.Add(lblAuthor);
+            grpYaml.Controls.Add(lblTitle);
+            grpYaml.Location = new Point(456, 157);
+            grpYaml.Name = "grpYaml";
+            grpYaml.Size = new Size(677, 343);
+            grpYaml.TabIndex = 9;
+            grpYaml.TabStop = false;
+            grpYaml.Text = "Yaml Data (FrontMatter)";
             // 
             // btnDefaults
             // 
@@ -278,13 +278,13 @@
             lblTitle.TabIndex = 0;
             lblTitle.Text = "Title:";
             // 
-            // textBox1
+            // txtContents
             // 
-            textBox1.Location = new Point(456, 531);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(677, 201);
-            textBox1.TabIndex = 10;
+            txtContents.Location = new Point(456, 531);
+            txtContents.Multiline = true;
+            txtContents.Name = "txtContents";
+            txtContents.Size = new Size(677, 201);
+            txtContents.TabIndex = 10;
             // 
             // lblContents
             // 
@@ -304,26 +304,26 @@
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // frmMain
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1199, 793);
             Controls.Add(btnSave);
             Controls.Add(lblContents);
-            Controls.Add(textBox1);
-            Controls.Add(groupBox1);
+            Controls.Add(txtContents);
+            Controls.Add(grpYaml);
             Controls.Add(tableLayoutPanel2);
             Controls.Add(listFiles);
             Controls.Add(tableLayoutPanel1);
-            Name = "Form1";
-            Text = "Form1";
+            Name = "frmMain";
+            Text = "FrontMatter Loader (YAML)";
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel2.PerformLayout();
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
+            grpYaml.ResumeLayout(false);
+            grpYaml.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -336,10 +336,10 @@
         private CheckBox chkMarkdown;
         private TableLayoutPanel tableLayoutPanel1;
         private ListBox listFiles;
-        private Label label1;
+        private Label lblFileName;
         private TextBox txtFileName;
         private TableLayoutPanel tableLayoutPanel2;
-        private GroupBox groupBox1;
+        private GroupBox grpYaml;
         private Button btnDefaults;
         private Button btnClear;
         private Label lblDate;
@@ -352,7 +352,7 @@
         private Label lblLayout;
         private Label lblAuthor;
         private Label lblTitle;
-        private TextBox textBox1;
+        private TextBox txtContents;
         private Label lblContents;
         private Button btnSave;
     }

@@ -1,11 +1,31 @@
 namespace C__Yaml_Parser
 {
-    public partial class Form1 : Form
+    public partial class frmMain : Form
     {
-        public Form1()
+        public frmMain()
         {
             InitializeComponent();
+
+            LoadFilesFromFolder(@"C:\Users\dan\OneDrive\Desktop\STAGING");
+
+            this.CenterToScreen();
         }
+
+        /*
+            On list selection changed:
+                - load file name
+                - load contents
+                - try to detect front matter data in the .md file
+                    if found -> load data into the interface
+                        - author
+                        - title
+                        - layout
+                        - date
+                        - categories
+                        - etc.
+                    if not found?
+                        - load defaults
+         */
 
         private void LoadFilesFromFolder (string folder)
         {
@@ -19,7 +39,7 @@ namespace C__Yaml_Parser
             ClearSelectionDetails();
 
             //  toggle editor states
-            ToggleEditors();
+            ToggleEditors(false);
 
             //  load actual files
             DirectoryInfo di = new DirectoryInfo(folder);
@@ -30,7 +50,9 @@ namespace C__Yaml_Parser
             foreach(FileInfo fi in files)
             {
                 listFiles.Items.Add(fi.Name);
-            }    
+            }
+
+            txtFolder.Text = folder;
         }
 
         private void ClearSelectionDetails()
@@ -38,9 +60,17 @@ namespace C__Yaml_Parser
 
         }
 
-        private void ToggleEditors ()
+        private void ToggleEditors (bool on)
         {
+            txtFileName.Enabled = on;
+            grpYaml.Enabled = on;
+            btnSave.Enabled = on;
+            txtContents.Enabled = on;
+        }
 
+        private void LoadFileContents(string fileName)
+        {
+            txtContents.Clear();
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -51,7 +81,6 @@ namespace C__Yaml_Parser
             if (res == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
             {
                 LoadFilesFromFolder(fbd.SelectedPath);
-                txtFolder.Text = fbd.SelectedPath;
             }            
             
         }
@@ -64,7 +93,13 @@ namespace C__Yaml_Parser
 
         private void listFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //  when we select an item, we load the data into the selection panels
+            if (listFiles.SelectedIndex == -1)
+                return;
+
+            txtFileName.Text = listFiles.SelectedItem.ToString();
+
+            //  load contents
+            LoadFileContents(listFiles.SelectedItem.ToString());
         }
     }
 }
