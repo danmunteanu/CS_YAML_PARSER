@@ -57,7 +57,15 @@ namespace C__Yaml_Parser
 
         private void ClearSelectionDetails()
         {
+            txtFileName.Clear();
+            txtContents.Clear();
 
+            //  Yaml Fields
+            txtTitle.Clear();
+            txtAuthor.Clear();
+            txtDate.Clear();
+            txtLayout.Clear();
+            chkListCategs.Items.Clear();
         }
 
         private void ToggleEditors (bool on)
@@ -67,10 +75,54 @@ namespace C__Yaml_Parser
             btnSave.Enabled = on;
             txtContents.Enabled = on;
         }
+        
+        private void SetFrontMatterData(FrontMatterData data)
+        {
+            //  Clear Selection Data
+            ClearSelectionDetails();
+
+            if (data == null)
+                return;
+
+            txtTitle.Text = data.Title;
+            txtAuthor.Text = data.Author;
+            txtLayout.Text = data.Layout;
+            txtDate.Text = data.Date;
+
+            if (data.Categories != null)
+            {
+                foreach(string categ in data.Categories)
+                {
+                    chkListCategs.Items.Add(categ, true);
+                }
+            }
+
+            //  Tags
+        }
+
+        private void LoadSelectionData(string fileName)
+        {
+            string path = txtFolder.Text + "\\" + fileName;
+            string contents = File.ReadAllText(path);
+
+            try
+            {
+                var data = MarkdownExtensions.GetFrontMatter<FrontMatterData>(contents);
+
+                SetFrontMatterData(data);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            
+        }
 
         private void LoadFileContents(string fileName)
         {
             txtContents.Clear();
+            txtContents.Text = File.ReadAllText(txtFolder.Text + "\\" + fileName);
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -96,10 +148,14 @@ namespace C__Yaml_Parser
             if (listFiles.SelectedIndex == -1)
                 return;
 
-            txtFileName.Text = listFiles.SelectedItem.ToString();
+            string absolutePath = listFiles.SelectedItem.ToString();
+
+            txtFileName.Text = absolutePath;
 
             //  load contents
-            LoadFileContents(listFiles.SelectedItem.ToString());
+            LoadFileContents(absolutePath);
+
+            LoadSelectionData(absolutePath);
         }
     }
 }
