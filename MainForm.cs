@@ -1,12 +1,24 @@
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
+
 namespace C__Yaml_Parser
 {
     public partial class frmMain : Form
     {
+        private const string KDefaultLayout = "post";
+        private const string KDefaultAuthor = "Dan";
+        private const string KDefaultCategory = "default";
+        private const string KDateMask = "yyyy-MM-dd hh:mm tt";
+        private const string KDefaultFolder = "C:\\Users\\dan\\OneDrive\\Desktop\\STAGING";
+        private const string KTempFolder = "C:\\Users\\dan\\OneDrive\\Desktop\\STAGING_temp";
+        private const string KDocStart = "---";
+        private const string KDocEnd = "---";
+
         public frmMain()
         {
             InitializeComponent();
 
-            LoadFilesFromFolder(@"C:\Users\dan\OneDrive\Desktop\STAGING");
+            LoadFilesFromFolder(KDefaultFolder);
 
             this.CenterToScreen();
         }
@@ -27,11 +39,8 @@ namespace C__Yaml_Parser
                         - load defaults
          */
 
-        private void LoadFilesFromFolder (string folder)
+        private void LoadFilesFromFolder(string folder)
         {
-            if (folder == null || folder == "")
-                return;
-
             //  clear the list 
             listFiles.Items.Clear();
 
@@ -41,13 +50,20 @@ namespace C__Yaml_Parser
             //  toggle editor states
             ToggleEditors(false);
 
+            if (folder == null || folder == "")
+                return;
+
+            //  folder must exist
+            if (!Directory.Exists(folder))
+                return;
+
             //  load actual files
             DirectoryInfo di = new DirectoryInfo(folder);
             string filter = "*.md";
             if (!chkMarkdown.Checked)
                 filter = "";
             FileInfo[] files = di.GetFiles(filter);
-            foreach(FileInfo fi in files)
+            foreach (FileInfo fi in files)
             {
                 listFiles.Items.Add(fi.Name);
             }
@@ -60,22 +76,17 @@ namespace C__Yaml_Parser
             txtFileName.Clear();
             txtContents.Clear();
 
-            //  Yaml Fields
-            txtTitle.Clear();
-            txtAuthor.Clear();
-            txtDate.Clear();
-            txtLayout.Clear();
-            chkListCategs.Items.Clear();
+            ClearYamlFields();
         }
 
-        private void ToggleEditors (bool on)
+        private void ToggleEditors(bool on)
         {
-            txtFileName.Enabled = on;
+            txtFileName.Enabled = false;
             grpYaml.Enabled = on;
             btnSave.Enabled = on;
-            txtContents.Enabled = on;
+            txtContents.Enabled = false;
         }
-        
+
         private void SetFrontMatterData(FrontMatterData data)
         {
             //  Clear Selection Data
@@ -91,7 +102,7 @@ namespace C__Yaml_Parser
 
             if (data.Categories != null)
             {
-                foreach(string categ in data.Categories)
+                foreach (string categ in data.Categories)
                 {
                     chkListCategs.Items.Add(categ, true);
                 }
@@ -100,10 +111,27 @@ namespace C__Yaml_Parser
             //  Tags
         }
 
+        private void LoadDefaultFrontMatter()
+        {
+            ClearYamlFields();
+
+            if (listFiles.SelectedIndex != -1)
+            {
+                string item = listFiles.SelectedItem.ToString();
+
+                txtTitle.Text = Path.GetFileNameWithoutExtension(item);
+                txtDate.Text = DateTime.Now.ToString(KDateMask);
+                txtLayout.Text = KDefaultLayout;
+                txtAuthor.Text = KDefaultAuthor;
+
+                chkListCategs.Items.Add(KDefaultCategory, true);
+            }
+        }
+
         private void LoadSelectionData(string fileName)
         {
             string path = txtFolder.Text + "\\" + fileName;
-            string contents = File.ReadAllText(path);
+            string contents = txtContents.Text;
 
             try
             {
@@ -113,10 +141,28 @@ namespace C__Yaml_Parser
             }
             catch (Exception ex)
             {
+                DialogResult res;
+                res = MessageBox.Show(
+                    ex.ToString(),
+                    "Exception Thrown",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
 
+                LoadDefaultFrontMatter();
             }
 
-            
+
+        }
+
+        private void ClearYamlFields()
+        {
+            txtTitle.Clear();
+            txtLayout.Clear();
+            txtAuthor.Clear();
+            txtDate.Clear();
+            chkListCategs.Items.Clear();
+            //  clear tags
         }
 
         private void LoadFileContents(string fileName)
@@ -133,8 +179,8 @@ namespace C__Yaml_Parser
             if (res == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
             {
                 LoadFilesFromFolder(fbd.SelectedPath);
-            }            
-            
+            }
+
         }
 
         private void chkMarkdown_CheckedChanged(object sender, EventArgs e)
@@ -148,14 +194,62 @@ namespace C__Yaml_Parser
             if (listFiles.SelectedIndex == -1)
                 return;
 
-            string absolutePath = listFiles.SelectedItem.ToString();
+            string fileName = listFiles.SelectedItem.ToString();
 
-            txtFileName.Text = absolutePath;
+            LoadSelectionData(fileName);
+            LoadFileContents(fileName);
+            ToggleEditors(true);
 
-            //  load contents
-            LoadFileContents(absolutePath);
+            //  set file name last because it gets cleared when settin FM data
+            txtFileName.Text = fileName;
+        }
 
-            LoadSelectionData(absolutePath);
+        private void btnDefaults_Click(object sender, EventArgs e)
+        {
+            LoadDefaultFrontMatter();
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            ClearYamlFields();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            //  create the front matter structure
+            FrontMatterData fm = new FrontMatterData();
+            fm.Title = txtTitle.Text;
+            fm.Author = txtAuthor.Text;
+            fm.Layout = txtLayout.Text;
+            fm.Date = txtDate.Text;
+
+            //  save categories
+            List<string> catList = new List<string>();
+            foreach(string item in chkListCategs.CheckedItems)
+            {
+                catList.Add(item);
+            }
+            fm.Categories = catList.ToArray();
+
+            //  serialize structure
+            var serializer = new SerializerBuilder()
+                .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                .Build();
+            var yaml = serializer.Serialize(fm);
+
+            //  write to file            
+            if (txtFileName.Text != null && txtFileName.Text != "")
+            {
+                string fileName = KTempFolder + "\\" + txtFileName.Text;
+
+                StreamWriter writer = new StreamWriter(fileName);
+                
+                writer.WriteLine(KDocStart);
+                writer.WriteLine(yaml);
+                writer.WriteLine(KDocEnd);
+                writer.WriteLine(txtContents.Text);
+            }
+
         }
     }
 }

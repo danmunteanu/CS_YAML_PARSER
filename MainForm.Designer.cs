@@ -180,12 +180,13 @@
             // 
             // btnDefaults
             // 
-            btnDefaults.Location = new Point(304, 268);
+            btnDefaults.Location = new Point(408, 268);
             btnDefaults.Name = "btnDefaults";
-            btnDefaults.Size = new Size(163, 34);
+            btnDefaults.Size = new Size(110, 34);
             btnDefaults.TabIndex = 11;
             btnDefaults.Text = "Defaults";
             btnDefaults.UseVisualStyleBackColor = true;
+            btnDefaults.Click += btnDefaults_Click;
             // 
             // btnClear
             // 
@@ -195,11 +196,12 @@
             btnClear.TabIndex = 10;
             btnClear.Text = "Clear";
             btnClear.UseVisualStyleBackColor = true;
+            btnClear.Click += btnClear_Click;
             // 
             // lblDate
             // 
             lblDate.AutoSize = true;
-            lblDate.Location = new Point(44, 205);
+            lblDate.Location = new Point(41, 190);
             lblDate.Name = "lblDate";
             lblDate.Size = new Size(53, 25);
             lblDate.TabIndex = 9;
@@ -208,36 +210,36 @@
             // txtDate
             // 
             txtDate.Enabled = false;
-            txtDate.Location = new Point(139, 199);
+            txtDate.Location = new Point(139, 190);
             txtDate.Name = "txtDate";
-            txtDate.Size = new Size(150, 31);
+            txtDate.Size = new Size(240, 31);
             txtDate.TabIndex = 8;
             // 
             // txtLayout
             // 
             txtLayout.Location = new Point(139, 142);
             txtLayout.Name = "txtLayout";
-            txtLayout.Size = new Size(150, 31);
+            txtLayout.Size = new Size(136, 31);
             txtLayout.TabIndex = 7;
             // 
             // txtAuthor
             // 
             txtAuthor.Location = new Point(138, 96);
             txtAuthor.Name = "txtAuthor";
-            txtAuthor.Size = new Size(150, 31);
+            txtAuthor.Size = new Size(136, 31);
             txtAuthor.TabIndex = 6;
             // 
             // txtTitle
             // 
             txtTitle.Location = new Point(139, 53);
             txtTitle.Name = "txtTitle";
-            txtTitle.Size = new Size(150, 31);
+            txtTitle.Size = new Size(314, 31);
             txtTitle.TabIndex = 5;
             // 
             // lblCategs
             // 
             lblCategs.AutoSize = true;
-            lblCategs.Location = new Point(328, 39);
+            lblCategs.Location = new Point(475, 25);
             lblCategs.Name = "lblCategs";
             lblCategs.Size = new Size(100, 25);
             lblCategs.TabIndex = 4;
@@ -246,7 +248,7 @@
             // chkListCategs
             // 
             chkListCategs.FormattingEnabled = true;
-            chkListCategs.Location = new Point(328, 67);
+            chkListCategs.Location = new Point(475, 53);
             chkListCategs.Name = "chkListCategs";
             chkListCategs.Size = new Size(156, 144);
             chkListCategs.TabIndex = 3;
@@ -272,7 +274,7 @@
             // lblTitle
             // 
             lblTitle.AutoSize = true;
-            lblTitle.Location = new Point(28, 49);
+            lblTitle.Location = new Point(39, 53);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(48, 25);
             lblTitle.TabIndex = 0;
@@ -303,6 +305,7 @@
             btnSave.TabIndex = 12;
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
             // 
             // frmMain
             // 
