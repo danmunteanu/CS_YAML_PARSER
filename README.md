@@ -1,12 +1,8 @@
 # A Yaml Parser In C#
 
-This is a simple YAML parser implementation written in C#.
+Simple YAML parser implementation written in C#.
 
 There's also a companion course explaining how to develop the app (link takes you to Udemy).
 
-### [FREE Udemy Course | Beginner Friendly C# Course | Build A WinForms Yaml Parser In C#](https://www.udemy.com/course/learn-csharp-yaml-parsing/?couponCode=FROM_GITHUB)
-
-If you're a C# beginner/intermediate, this might be good for you.
-
-It can help you grow more confident in your C# and OOP skills.
+### [Build A WinForms Yaml Parser In C#](https://www.udemy.com/course/learn-csharp-yaml-parsing/?couponCode=FROM_GITHUB)
 
