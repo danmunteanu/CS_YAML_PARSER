@@ -240,6 +240,11 @@ namespace C__Yaml_Parser
             //  write to file            
             if (txtFileName.Text != null && txtFileName.Text != "")
             {
+                if (!Directory.Exists(KTempFolder))
+                {
+                    Directory.CreateDirectory(KTempFolder);
+                }
+
                 string fileName = KTempFolder + "\\" + txtFileName.Text;
 
                 StreamWriter writer = new StreamWriter(fileName);
@@ -248,6 +253,8 @@ namespace C__Yaml_Parser
                 writer.WriteLine(yaml);
                 writer.WriteLine(KDocEnd);
                 writer.WriteLine(txtContents.Text);
+
+                writer.Flush();
             }
 
         }
