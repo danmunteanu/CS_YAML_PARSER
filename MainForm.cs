@@ -122,9 +122,12 @@ namespace C__Yaml_Parser
         {
             ClearYamlFields();
 
-            if (listFiles.SelectedIndex != -1)
+            if (listFiles.SelectedIndex != -1 && listFiles.SelectedItem != null)
             {
-                string item = listFiles.SelectedItem.ToString();
+                if (listFiles.SelectedItem is not string selected)
+                    return;
+
+                string item = selected.ToString();
 
                 txtTitle.Text = Path.GetFileNameWithoutExtension(item);
                 txtDate.Text = DateTime.Now.ToString(KDateMask);
@@ -137,7 +140,7 @@ namespace C__Yaml_Parser
 
         private void LoadSelectionData(string fileName)
         {
-            string path = txtFolder.Text + "\\" + fileName;
+            string path = Path.Combine(txtFolder.Text, fileName);
             string contents = txtContents.Text;
 
             try
@@ -175,7 +178,7 @@ namespace C__Yaml_Parser
         private void LoadFileContents(string fileName)
         {
             txtContents.Clear();
-            txtContents.Text = File.ReadAllText(txtFolder.Text + "\\" + fileName);
+            txtContents.Text = File.ReadAllText(Path.Combine(txtFolder.Text, fileName));
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -201,7 +204,10 @@ namespace C__Yaml_Parser
             if (listFiles.SelectedIndex == -1)
                 return;
 
-            string fileName = listFiles.SelectedItem.ToString();
+            if (listFiles.SelectedItem is not string selected)
+                return;
+
+            string fileName = selected.ToString();
 
             string ext = Path.GetExtension(fileName).ToLowerInvariant();
 
@@ -273,7 +279,7 @@ namespace C__Yaml_Parser
                     Directory.CreateDirectory(KTempFolder);
                 }
 
-                string fileName = KTempFolder + "\\" + txtFileName.Text;
+                string fileName = Path.Combine(KTempFolder, txtFileName.Text);
 
                 StreamWriter writer = new StreamWriter(fileName);
                 
