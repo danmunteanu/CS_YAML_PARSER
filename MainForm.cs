@@ -14,6 +14,10 @@ namespace C__Yaml_Parser
         private const string KDocStart = "---";
         private const string KDocEnd = "---";
 
+        private string[] s_AllowedExtensions = [
+            ".md", ".txt", ".markdown"
+        ];
+
         public frmMain()
         {
             InitializeComponent();
@@ -83,8 +87,11 @@ namespace C__Yaml_Parser
         {
             txtFileName.Enabled = false;
             grpYaml.Enabled = on;
-            btnSave.Enabled = on;
             txtContents.Enabled = false;
+
+            btnSave.Enabled = on;
+            btnDefaults.Enabled = on;
+            btnClear.Enabled = on;
         }
 
         private void SetFrontMatterData(FrontMatterData data)
@@ -196,6 +203,18 @@ namespace C__Yaml_Parser
 
             string fileName = listFiles.SelectedItem.ToString();
 
+            string ext = Path.GetExtension(fileName).ToLowerInvariant();
+
+            //  make sure we're loading only text-files
+            if (!s_AllowedExtensions.Contains(ext))
+            {
+                ClearYamlFields();
+                ToggleEditors(false);
+                txtFileName.Text = fileName;
+                txtContents.Text = string.Empty;
+                return;
+            }
+
             LoadSelectionData(fileName);
             LoadFileContents(fileName);
             ToggleEditors(true);
@@ -216,6 +235,15 @@ namespace C__Yaml_Parser
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            string ext = Path.GetExtension(txtFileName.Text).ToLowerInvariant();
+            if (!s_AllowedExtensions.Contains(ext))
+            {
+                string message = string.Format("Saving to a {0} file is not allowed", ext);
+                string title = "Cannot save";
+                MessageBox.Show(message, title);
+                return;
+            }
+
             //  create the front matter structure
             FrontMatterData fm = new FrontMatterData();
             fm.Title = txtTitle.Text;
