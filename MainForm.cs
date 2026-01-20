@@ -9,10 +9,20 @@ namespace C__Yaml_Parser
         private const string KDefaultAuthor = "Dan";
         private const string KDefaultCategory = "default";
         private const string KDateMask = "yyyy-MM-dd hh:mm tt";
-        private const string KDefaultFolder = "C:\\Users\\dan\\OneDrive\\Desktop\\STAGING";
-        private const string KTempFolder = "C:\\Users\\dan\\OneDrive\\Desktop\\STAGING_temp";
-        private const string KDocStart = "---";
         private const string KDocEnd = "---";
+        private const string KDocStart = "---";
+
+        private string KDefaultFolder =
+            Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
+                ""  //  Add subfolder here
+            );
+
+        private string KTempFolder =
+            Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
+                "STAGING_temp"
+            );
 
         private string[] s_AllowedExtensions = [
             ".md",
@@ -23,7 +33,7 @@ namespace C__Yaml_Parser
         public frmMain()
         {
             InitializeComponent();
-
+            
             LoadFilesFromFolder(KDefaultFolder);
 
             this.CenterToScreen();
