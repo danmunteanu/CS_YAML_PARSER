@@ -97,7 +97,7 @@ namespace C__Yaml_Parser
         private void SetFrontMatterData(FrontMatterData data)
         {
             //  Clear Selection Data
-            ClearSelectionDetails();
+            //ClearSelectionDetails();
 
             if (data == null)
                 return;
@@ -107,6 +107,7 @@ namespace C__Yaml_Parser
             txtLayout.Text = data.Layout;
             txtDate.Text = data.Date;
 
+            chkListCategs.Items.Clear();
             if (data.Categories != null)
             {
                 foreach (string categ in data.Categories)
@@ -221,8 +222,8 @@ namespace C__Yaml_Parser
                 return;
             }
 
-            LoadSelectionData(fileName);
             LoadFileContents(fileName);
+            LoadSelectionData(fileName);
             ToggleEditors(true);
 
             //  set file name last because it gets cleared when settin FM data
