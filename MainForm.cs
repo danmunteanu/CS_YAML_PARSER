@@ -15,9 +15,9 @@ namespace C__Yaml_Parser
         private const string KDocEnd = "---";
 
         private string[] s_AllowedExtensions = [
-            ".md", 
+            ".md",
             ".markdown",
-            ".txt", 
+            ".txt",
         ];
 
         public frmMain()
@@ -265,7 +265,7 @@ namespace C__Yaml_Parser
 
             //  save categories
             List<string> catList = new List<string>();
-            foreach(string item in chkListCategs.CheckedItems)
+            foreach (string item in chkListCategs.CheckedItems)
             {
                 catList.Add(item);
             }
@@ -288,7 +288,7 @@ namespace C__Yaml_Parser
                 string fileName = Path.Combine(KTempFolder, txtFileName.Text);
 
                 StreamWriter writer = new StreamWriter(fileName);
-                
+
                 writer.WriteLine(KDocStart);
                 writer.WriteLine(yaml);
                 writer.WriteLine(KDocEnd);
@@ -297,6 +297,108 @@ namespace C__Yaml_Parser
                 writer.Flush();
             }
 
+        }
+
+        private void listFiles_DragEnter(object sender, DragEventArgs e)
+        {
+            //  set the drag drop effects based on the selection
+
+            e.Effect = DragDropEffects.None;
+
+            if (e.Data is null)
+                return;
+
+            if (!e.Data.GetDataPresent(DataFormats.FileDrop))
+                return;
+
+            if (e.Data.GetData(DataFormats.FileDrop) is not string[] dropItems ||
+                dropItems.Length == 0)
+                return;
+
+            foreach (string item in dropItems)
+            {
+                if (Directory.Exists(item))
+                {
+                    e.Effect = DragDropEffects.All;
+                    continue;
+                }
+
+                string ext = Path.GetExtension(item).ToLowerInvariant();
+
+                if (chkMarkdownAndText.Checked)
+                {
+                    if (s_AllowedExtensions.Contains(ext))
+                    {
+                        e.Effect = DragDropEffects.All;
+                        continue;
+                    }
+                }
+                else
+                {
+                    e.Effect = DragDropEffects.All;
+                    continue;
+                }
+            }
+        }
+
+        private void listFiles_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data is null)
+                return;
+
+            if (!e.Data.GetDataPresent(DataFormats.FileDrop))
+                return;
+
+            if (e.Data.GetData(DataFormats.FileDrop) is not string[] dropItems ||
+                dropItems.Length == 0)
+                return;
+
+            foreach (string item in dropItems)
+            {
+                if (Directory.Exists(item))
+                {
+                    DirectoryInfo di = new DirectoryInfo(item);
+                    IEnumerable<FileInfo> files = di.EnumerateFiles();
+                    if (chkMarkdownAndText.Checked)
+                    {
+                        files = files.Where(
+                            f => s_AllowedExtensions.Contains(f.Extension)
+                        );
+                    }
+                    foreach (FileInfo file in files)
+                        listFiles.Items.Add(file.FullName);
+
+                    continue;
+                }
+
+                string ext = Path.GetExtension(item).ToLowerInvariant();
+
+                if (chkMarkdownAndText.Checked)
+                {
+                    if (s_AllowedExtensions.Contains(ext))
+                    {
+                        listFiles.Items.Add(item);
+                        continue;
+                    }
+                }
+                else
+                {
+                    listFiles.Items.Add(item);
+                    continue;
+                }
+            }
+        }
+
+        private void btnClearList_Click(object sender, EventArgs e)
+        {
+            DialogResult res = MessageBox.Show("Clear list?", "Confirmation", MessageBoxButtons.YesNo);
+            if (res == DialogResult.No)
+                return;
+
+            listFiles.Items.Clear();
+            txtFolder.Text = string.Empty;
+            ClearSelectionDetails();
+            ToggleEditors(false);
         }
     }
 }
