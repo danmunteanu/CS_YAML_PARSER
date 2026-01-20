@@ -31,7 +31,7 @@
             lblFolder = new Label();
             txtFolder = new TextBox();
             btnBrowse = new Button();
-            chkMarkdown = new CheckBox();
+            chkMarkdownAndText = new CheckBox();
             listFiles = new ListBox();
             lblFileName = new Label();
             txtFileName = new TextBox();
@@ -80,7 +80,7 @@
             // 
             lblFolder.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lblFolder.AutoSize = true;
-            lblFolder.Location = new Point(2, 496);
+            lblFolder.Location = new Point(2, 507);
             lblFolder.Margin = new Padding(2, 0, 2, 0);
             lblFolder.Name = "lblFolder";
             lblFolder.Size = new Size(54, 20);
@@ -91,10 +91,10 @@
             // 
             txtFolder.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtFolder.Enabled = false;
-            txtFolder.Location = new Point(2, 520);
+            txtFolder.Location = new Point(2, 531);
             txtFolder.Margin = new Padding(2);
             txtFolder.Name = "txtFolder";
-            txtFolder.Size = new Size(359, 27);
+            txtFolder.Size = new Size(396, 27);
             txtFolder.TabIndex = 1;
             // 
             // btnBrowse
@@ -110,20 +110,20 @@
             btnBrowse.UseVisualStyleBackColor = true;
             btnBrowse.Click += btnBrowse_Click;
             // 
-            // chkMarkdown
+            // chkMarkdownAndText
             // 
-            chkMarkdown.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            chkMarkdown.AutoSize = true;
-            chkMarkdown.Checked = true;
-            chkMarkdown.CheckState = CheckState.Checked;
-            chkMarkdown.Location = new Point(209, 7);
-            chkMarkdown.Margin = new Padding(2);
-            chkMarkdown.Name = "chkMarkdown";
-            chkMarkdown.Size = new Size(146, 24);
-            chkMarkdown.TabIndex = 3;
-            chkMarkdown.Text = "Markdown Only (*.md)";
-            chkMarkdown.UseVisualStyleBackColor = true;
-            chkMarkdown.CheckedChanged += chkMarkdown_CheckedChanged;
+            chkMarkdownAndText.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            chkMarkdownAndText.AutoSize = true;
+            chkMarkdownAndText.Checked = true;
+            chkMarkdownAndText.CheckState = CheckState.Checked;
+            chkMarkdownAndText.Location = new Point(195, 7);
+            chkMarkdownAndText.Margin = new Padding(2);
+            chkMarkdownAndText.Name = "chkMarkdownAndText";
+            chkMarkdownAndText.Size = new Size(197, 24);
+            chkMarkdownAndText.TabIndex = 3;
+            chkMarkdownAndText.Text = "Markdown And Text Only";
+            chkMarkdownAndText.UseVisualStyleBackColor = true;
+            chkMarkdownAndText.CheckedChanged += chkMarkdown_CheckedChanged;
             // 
             // listFiles
             // 
@@ -132,7 +132,7 @@
             listFiles.Location = new Point(2, 2);
             listFiles.Margin = new Padding(2);
             listFiles.Name = "listFiles";
-            listFiles.Size = new Size(359, 482);
+            listFiles.Size = new Size(396, 493);
             listFiles.TabIndex = 5;
             listFiles.SelectedIndexChanged += listFiles_SelectedIndexChanged;
             // 
@@ -154,7 +154,7 @@
             txtFileName.Location = new Point(101, 4);
             txtFileName.Margin = new Padding(2);
             txtFileName.Name = "txtFileName";
-            txtFileName.Size = new Size(396, 27);
+            txtFileName.Size = new Size(394, 27);
             txtFileName.TabIndex = 7;
             // 
             // tableLayoutFileName
@@ -170,7 +170,7 @@
             tableLayoutFileName.Name = "tableLayoutFileName";
             tableLayoutFileName.RowCount = 1;
             tableLayoutFileName.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutFileName.Size = new Size(499, 36);
+            tableLayoutFileName.Size = new Size(497, 36);
             tableLayoutFileName.TabIndex = 8;
             // 
             // grpYaml
@@ -181,7 +181,7 @@
             grpYaml.Margin = new Padding(2);
             grpYaml.Name = "grpYaml";
             grpYaml.Padding = new Padding(2);
-            grpYaml.Size = new Size(493, 195);
+            grpYaml.Size = new Size(491, 195);
             grpYaml.TabIndex = 9;
             grpYaml.TabStop = false;
             grpYaml.Text = "Yaml Data (FrontMatter)";
@@ -199,7 +199,7 @@
             tableLayoutPanel4.Name = "tableLayoutPanel4";
             tableLayoutPanel4.RowCount = 1;
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel4.Size = new Size(489, 171);
+            tableLayoutPanel4.Size = new Size(487, 171);
             tableLayoutPanel4.TabIndex = 20;
             // 
             // tableLayoutYamlLeft
@@ -311,7 +311,7 @@
             tableLayoutYamlRight.Controls.Add(lblCategs, 0, 0);
             tableLayoutYamlRight.Controls.Add(chkListCategs, 0, 1);
             tableLayoutYamlRight.Dock = DockStyle.Fill;
-            tableLayoutYamlRight.Location = new Point(327, 3);
+            tableLayoutYamlRight.Location = new Point(325, 3);
             tableLayoutYamlRight.Name = "tableLayoutYamlRight";
             tableLayoutYamlRight.RowCount = 2;
             tableLayoutYamlRight.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
@@ -345,7 +345,7 @@
             // 
             btnDefaults.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             btnDefaults.Font = new Font("Segoe UI", 8F);
-            btnDefaults.Location = new Point(324, 6);
+            btnDefaults.Location = new Point(322, 6);
             btnDefaults.Margin = new Padding(2);
             btnDefaults.Name = "btnDefaults";
             btnDefaults.Size = new Size(92, 27);
@@ -357,7 +357,7 @@
             // btnClear
             // 
             btnClear.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            btnClear.Location = new Point(420, 6);
+            btnClear.Location = new Point(418, 6);
             btnClear.Margin = new Padding(2);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(69, 27);
@@ -373,7 +373,9 @@
             txtContents.Margin = new Padding(2);
             txtContents.Multiline = true;
             txtContents.Name = "txtContents";
-            txtContents.Size = new Size(499, 217);
+            txtContents.ReadOnly = true;
+            txtContents.ScrollBars = ScrollBars.Vertical;
+            txtContents.Size = new Size(497, 228);
             txtContents.TabIndex = 10;
             // 
             // lblContents
@@ -389,8 +391,8 @@
             // btnSave
             // 
             btnSave.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            btnSave.Font = new Font("Segoe UI", 8F);
-            btnSave.Location = new Point(358, 2);
+            btnSave.Font = new Font("Segoe UI", 10F);
+            btnSave.Location = new Point(356, 2);
             btnSave.Margin = new Padding(2);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(137, 44);
@@ -402,8 +404,8 @@
             // tableLayoutMain
             // 
             tableLayoutMain.ColumnCount = 2;
-            tableLayoutMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 42.1052628F));
-            tableLayoutMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 57.8947372F));
+            tableLayoutMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 44.53303F));
+            tableLayoutMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 55.46697F));
             tableLayoutMain.Controls.Add(tableLayoutRight, 1, 0);
             tableLayoutMain.Controls.Add(tableLayoutLeft, 0, 0);
             tableLayoutMain.Dock = DockStyle.Fill;
@@ -411,7 +413,7 @@
             tableLayoutMain.Name = "tableLayoutMain";
             tableLayoutMain.RowCount = 1;
             tableLayoutMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutMain.Size = new Size(878, 602);
+            tableLayoutMain.Size = new Size(913, 613);
             tableLayoutMain.TabIndex = 13;
             // 
             // tableLayoutRight
@@ -425,7 +427,7 @@
             tableLayoutRight.Controls.Add(txtContents, 0, 3);
             tableLayoutRight.Controls.Add(lblContents, 0, 2);
             tableLayoutRight.Dock = DockStyle.Fill;
-            tableLayoutRight.Location = new Point(372, 3);
+            tableLayoutRight.Location = new Point(409, 3);
             tableLayoutRight.Name = "tableLayoutRight";
             tableLayoutRight.RowCount = 5;
             tableLayoutRight.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
@@ -433,7 +435,7 @@
             tableLayoutRight.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
             tableLayoutRight.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutRight.RowStyles.Add(new RowStyle(SizeType.Absolute, 55F));
-            tableLayoutRight.Size = new Size(503, 596);
+            tableLayoutRight.Size = new Size(501, 607);
             tableLayoutRight.TabIndex = 15;
             // 
             // tableLayoutYAML
@@ -448,7 +450,7 @@
             tableLayoutYAML.RowCount = 2;
             tableLayoutYAML.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutYAML.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
-            tableLayoutYAML.Size = new Size(497, 244);
+            tableLayoutYAML.Size = new Size(495, 244);
             tableLayoutYAML.TabIndex = 19;
             // 
             // tableLayoutPanel3
@@ -464,7 +466,7 @@
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 1;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel3.Size = new Size(491, 39);
+            tableLayoutPanel3.Size = new Size(489, 39);
             tableLayoutPanel3.TabIndex = 18;
             // 
             // tableLayoutPanel1
@@ -474,12 +476,12 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 141F));
             tableLayoutPanel1.Controls.Add(btnSave, 1, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(3, 544);
+            tableLayoutPanel1.Location = new Point(3, 555);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(497, 49);
+            tableLayoutPanel1.Size = new Size(495, 49);
             tableLayoutPanel1.TabIndex = 16;
             // 
             // tableLayoutLeft
@@ -498,7 +500,7 @@
             tableLayoutLeft.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
             tableLayoutLeft.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
             tableLayoutLeft.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
-            tableLayoutLeft.Size = new Size(363, 596);
+            tableLayoutLeft.Size = new Size(400, 607);
             tableLayoutLeft.TabIndex = 14;
             // 
             // tableLayoutBottom
@@ -506,22 +508,22 @@
             tableLayoutBottom.ColumnCount = 3;
             tableLayoutBottom.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 117F));
             tableLayoutBottom.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutBottom.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
+            tableLayoutBottom.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 201F));
             tableLayoutBottom.Controls.Add(btnBrowse, 0, 0);
-            tableLayoutBottom.Controls.Add(chkMarkdown, 2, 0);
+            tableLayoutBottom.Controls.Add(chkMarkdownAndText, 2, 0);
             tableLayoutBottom.Dock = DockStyle.Fill;
-            tableLayoutBottom.Location = new Point(3, 554);
+            tableLayoutBottom.Location = new Point(3, 565);
             tableLayoutBottom.Name = "tableLayoutBottom";
             tableLayoutBottom.RowCount = 1;
             tableLayoutBottom.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutBottom.Size = new Size(357, 39);
+            tableLayoutBottom.Size = new Size(394, 39);
             tableLayoutBottom.TabIndex = 15;
             // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(878, 602);
+            ClientSize = new Size(913, 613);
             Controls.Add(tableLayoutMain);
             Margin = new Padding(2);
             Name = "frmMain";
@@ -552,7 +554,7 @@
         private Label lblFolder;
         private TextBox txtFolder;
         private Button btnBrowse;
-        private CheckBox chkMarkdown;
+        private CheckBox chkMarkdownAndText;
         private ListBox listFiles;
         private Label lblFileName;
         private TextBox txtFileName;

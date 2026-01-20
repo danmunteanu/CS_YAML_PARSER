@@ -15,7 +15,9 @@ namespace C__Yaml_Parser
         private const string KDocEnd = "---";
 
         private string[] s_AllowedExtensions = [
-            ".md", ".txt", ".markdown"
+            ".md", 
+            ".markdown",
+            ".txt", 
         ];
 
         public frmMain()
@@ -63,14 +65,15 @@ namespace C__Yaml_Parser
 
             //  load actual files
             DirectoryInfo di = new DirectoryInfo(folder);
-            string filter = "*.md";
-            if (!chkMarkdown.Checked)
-                filter = "";
-            FileInfo[] files = di.GetFiles(filter);
-            foreach (FileInfo fi in files)
+            IEnumerable<FileInfo> files = di.EnumerateFiles();
+            if (chkMarkdownAndText.Checked)
             {
-                listFiles.Items.Add(fi.Name);
+                files = files.Where(
+                    f => s_AllowedExtensions.Contains(f.Extension)
+                );
             }
+            foreach (FileInfo file in files)
+                listFiles.Items.Add(file.Name);
 
             txtFolder.Text = folder;
         }
@@ -87,7 +90,7 @@ namespace C__Yaml_Parser
         {
             txtFileName.Enabled = false;
             grpYaml.Enabled = on;
-            txtContents.Enabled = false;
+            //txtContents.Enabled = false;
 
             btnSave.Enabled = on;
             btnDefaults.Enabled = on;
@@ -98,6 +101,8 @@ namespace C__Yaml_Parser
         {
             //  Clear Selection Data
             //ClearSelectionDetails();
+
+            ClearYamlFields();
 
             if (data == null)
                 return;
