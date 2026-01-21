@@ -38,7 +38,7 @@ namespace C__Yaml_Parser
             panelYaml.Controls.Add(_editorYaml);
             _editorYaml.BringToFront();
 
-            LoadFilesFromFolder(KDefaultFolder);
+            OnBrowse(KDefaultFolder);
 
             this.CenterToScreen();
         }
@@ -59,7 +59,7 @@ namespace C__Yaml_Parser
                         - load defaults
          */
 
-        private void LoadFilesFromFolder(string folder)
+        private void OnBrowse(string folder)
         {
             //  clear the list 
             listFiles.Items.Clear();
@@ -70,13 +70,20 @@ namespace C__Yaml_Parser
             //  toggle editor states
             ToggleEditors(false);
 
-            if (folder == null || folder == "")
+            if (string.IsNullOrEmpty(folder))
                 return;
 
             //  folder must exist
             if (!Directory.Exists(folder))
                 return;
 
+            LoadFilesFromFolder(folder);
+
+            txtFolder.Text = folder;
+        }
+
+        private void LoadFilesFromFolder(string folder)
+        {
             //  load actual files
             DirectoryInfo di = new DirectoryInfo(folder);
             IEnumerable<FileInfo> files = di.EnumerateFiles();
@@ -87,9 +94,14 @@ namespace C__Yaml_Parser
                 );
             }
             foreach (FileInfo file in files)
-                listFiles.Items.Add(file.Name);
+                listFiles.Items.Add(file.FullName);
 
-            txtFolder.Text = folder;
+            //  load subfolders
+            IEnumerable<DirectoryInfo> subdirs = di.EnumerateDirectories();
+            foreach (DirectoryInfo sdi in subdirs)
+            {
+                LoadFilesFromFolder(sdi.FullName);
+            }
         }
 
         private void ClearSelectionDetails()
@@ -155,7 +167,7 @@ namespace C__Yaml_Parser
             DialogResult res = fbd.ShowDialog();
             if (res == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
             {
-                LoadFilesFromFolder(fbd.SelectedPath);
+                OnBrowse(fbd.SelectedPath);
             }
 
         }
@@ -163,7 +175,7 @@ namespace C__Yaml_Parser
         private void chkMarkdown_CheckedChanged(object sender, EventArgs e)
         {
             //  reloads files from folder loading all or .md files only
-            LoadFilesFromFolder(txtFolder.Text);
+            OnBrowse(txtFolder.Text);
         }
 
         private void listFiles_SelectedIndexChanged(object sender, EventArgs e)
@@ -174,7 +186,7 @@ namespace C__Yaml_Parser
             if (listFiles.SelectedItem is not string selected)
                 return;
 
-            string fileName = selected.ToString();
+            string fileName = Path.GetFileName(selected.ToString());
             string ext = Path.GetExtension(fileName).ToLowerInvariant();
 
             //  make sure we're loading only text-files
