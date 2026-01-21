@@ -5,12 +5,10 @@ namespace C__Yaml_Parser
 {
     public partial class frmMain : Form
     {
-        private const string KDefaultLayout = "post";
-        private const string KDefaultAuthor = "Dan";
-        private const string KDefaultCategory = "default";
-        private const string KDateMask = "yyyy-MM-dd hh:mm tt";
         private const string KDocEnd = "---";
         private const string KDocStart = "---";
+
+        private EditorYaml _editorYaml = new();
 
         private string KDefaultFolder =
             Path.Combine(
@@ -34,6 +32,12 @@ namespace C__Yaml_Parser
         {
             InitializeComponent();
             
+            //  Add _editorYaml to form
+            _editorYaml.Dock = DockStyle.Fill;
+            panelYaml.Controls.Clear();
+            panelYaml.Controls.Add(_editorYaml);
+            _editorYaml.BringToFront();
+
             LoadFilesFromFolder(KDefaultFolder);
 
             this.CenterToScreen();
@@ -91,67 +95,21 @@ namespace C__Yaml_Parser
         private void ClearSelectionDetails()
         {
             txtFileName.Clear();
-            txtContents.Clear();
 
-            ClearYamlFields();
+            _editorYaml.Clear();
+
+            txtContents.Clear();
         }
 
         private void ToggleEditors(bool on)
         {
             txtFileName.Enabled = false;
-            grpYaml.Enabled = on;
+
+            _editorYaml.Enabled = on;
+
             //txtContents.Enabled = false;
 
             btnSave.Enabled = on;
-            btnDefaults.Enabled = on;
-            btnClear.Enabled = on;
-        }
-
-        private void SetFrontMatterData(FrontMatterData data)
-        {
-            //  Clear Selection Data
-            //ClearSelectionDetails();
-
-            ClearYamlFields();
-
-            if (data == null)
-                return;
-
-            txtTitle.Text = data.Title;
-            txtAuthor.Text = data.Author;
-            txtLayout.Text = data.Layout;
-            txtDate.Text = data.Date;
-
-            chkListCategs.Items.Clear();
-            if (data.Categories != null)
-            {
-                foreach (string categ in data.Categories)
-                {
-                    chkListCategs.Items.Add(categ, true);
-                }
-            }
-
-            //  Tags
-        }
-
-        private void LoadDefaultFrontMatter()
-        {
-            ClearYamlFields();
-
-            if (listFiles.SelectedIndex != -1 && listFiles.SelectedItem != null)
-            {
-                if (listFiles.SelectedItem is not string selected)
-                    return;
-
-                string item = selected.ToString();
-
-                txtTitle.Text = Path.GetFileNameWithoutExtension(item);
-                txtDate.Text = DateTime.Now.ToString(KDateMask);
-                txtLayout.Text = KDefaultLayout;
-                txtAuthor.Text = KDefaultAuthor;
-
-                chkListCategs.Items.Add(KDefaultCategory, true);
-            }
         }
 
         private void LoadSelectionData(string fileName)
@@ -159,11 +117,13 @@ namespace C__Yaml_Parser
             string path = Path.Combine(txtFolder.Text, fileName);
             string contents = txtContents.Text;
 
+            _editorYaml.FileName = fileName;
+
             try
             {
                 var data = MarkdownExtensions.GetFrontMatter<FrontMatterData>(contents);
 
-                SetFrontMatterData(data);
+                _editorYaml.LoadData(data);
             }
             catch (Exception ex)
             {
@@ -175,21 +135,12 @@ namespace C__Yaml_Parser
                     MessageBoxIcon.Information
                 );
 
-                LoadDefaultFrontMatter();
+                _editorYaml.LoadDefaults();
             }
 
 
         }
 
-        private void ClearYamlFields()
-        {
-            txtTitle.Clear();
-            txtLayout.Clear();
-            txtAuthor.Clear();
-            txtDate.Clear();
-            chkListCategs.Items.Clear();
-            //  clear tags
-        }
 
         private void LoadFileContents(string fileName)
         {
@@ -224,13 +175,12 @@ namespace C__Yaml_Parser
                 return;
 
             string fileName = selected.ToString();
-
             string ext = Path.GetExtension(fileName).ToLowerInvariant();
 
             //  make sure we're loading only text-files
             if (!s_AllowedExtensions.Contains(ext))
             {
-                ClearYamlFields();
+                _editorYaml.Clear();
                 ToggleEditors(false);
                 txtFileName.Text = fileName;
                 txtContents.Text = string.Empty;
@@ -243,16 +193,6 @@ namespace C__Yaml_Parser
 
             //  set file name last because it gets cleared when settin FM data
             txtFileName.Text = fileName;
-        }
-
-        private void btnDefaults_Click(object sender, EventArgs e)
-        {
-            LoadDefaultFrontMatter();
-        }
-
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            ClearYamlFields();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -268,18 +208,7 @@ namespace C__Yaml_Parser
 
             //  create the front matter structure
             FrontMatterData fm = new FrontMatterData();
-            fm.Title = txtTitle.Text;
-            fm.Author = txtAuthor.Text;
-            fm.Layout = txtLayout.Text;
-            fm.Date = txtDate.Text;
-
-            //  save categories
-            List<string> catList = new List<string>();
-            foreach (string item in chkListCategs.CheckedItems)
-            {
-                catList.Add(item);
-            }
-            fm.Categories = catList.ToArray();
+            _editorYaml.SaveData(ref fm);
 
             //  serialize structure
             var serializer = new SerializerBuilder()
