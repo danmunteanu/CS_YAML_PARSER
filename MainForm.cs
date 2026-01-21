@@ -1,3 +1,4 @@
+using System.Globalization;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -7,6 +8,9 @@ namespace C__Yaml_Parser
     {
         private const string KDocEnd = "---";
         private const string KDocStart = "---";
+
+        private CultureInfo mEnCulture = new CultureInfo("en-US");
+        private CultureInfo mRoCulture = new CultureInfo("ro-RO");
 
         private EditorYaml _editorYaml = new();
 
@@ -31,7 +35,9 @@ namespace C__Yaml_Parser
         public frmMain()
         {
             InitializeComponent();
-            
+
+            cmbLang.SelectedIndex = 0;
+
             //  Add _editorYaml to form
             _editorYaml.Dock = DockStyle.Fill;
             panelYaml.Controls.Clear();
@@ -349,6 +355,41 @@ namespace C__Yaml_Parser
             txtFolder.Text = string.Empty;
             ClearSelectionDetails();
             ToggleEditors(false);
+        }
+
+        private void cmbLang_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (cmbLang.SelectedIndex)
+            {
+
+                case 0: //  EN
+                    Thread.CurrentThread.CurrentUICulture = mEnCulture;
+                    break;
+
+                case 1: //  RO
+                    Thread.CurrentThread.CurrentUICulture = mRoCulture;
+                    break;
+
+                default:
+                    Thread.CurrentThread.CurrentUICulture = mEnCulture;
+                    break;
+            }
+
+            UpdateLocale();
+        }
+
+        private void UpdateLocale()
+        {
+            lblListOfFiles.Text = Locale.LBL_LIST_OF_FILES;
+            lblFileName.Text = Locale.LBL_FILE_NAME;
+            lblContents.Text = Locale.LBL_CONTENTS;
+            btnBrowse.Text = Locale.BTN_ADD_FOLDER;
+            chkIncludeSubfolders.Text = Locale.CHK_INCLUDE_SUBFOLDERS;
+            chkMarkdownAndText.Text = Locale.CHK_MD_AND_TEXT;
+
+            _editorYaml.UpdateLocale();
+
+            btnSave.Text = Locale.BTN_SAVE;
         }
     }
 }

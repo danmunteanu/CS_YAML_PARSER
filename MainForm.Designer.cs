@@ -43,16 +43,20 @@
             tableLayoutRight = new TableLayoutPanel();
             tableLayoutPanel1 = new TableLayoutPanel();
             panelYaml = new Panel();
+            flowLayoutLanguages = new FlowLayoutPanel();
+            lblLang = new Label();
+            cmbLang = new ComboBox();
             tableLayoutLeft = new TableLayoutPanel();
             tableLayoutPanel2 = new TableLayoutPanel();
             btnClearList = new Button();
-            label1 = new Label();
+            lblListOfFiles = new Label();
             flowLayoutCheckboxes = new FlowLayoutPanel();
             chkIncludeSubfolders = new CheckBox();
             splitContainerMain = new SplitContainer();
             tableLayoutFileName.SuspendLayout();
             tableLayoutRight.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
+            flowLayoutLanguages.SuspendLayout();
             tableLayoutLeft.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             flowLayoutCheckboxes.SuspendLayout();
@@ -155,7 +159,7 @@
             tableLayoutFileName.Controls.Add(lblFileName, 0, 0);
             tableLayoutFileName.Controls.Add(txtFileName, 1, 0);
             tableLayoutFileName.Dock = DockStyle.Fill;
-            tableLayoutFileName.Location = new Point(2, 37);
+            tableLayoutFileName.Location = new Point(2, 47);
             tableLayoutFileName.Margin = new Padding(2);
             tableLayoutFileName.Name = "tableLayoutFileName";
             tableLayoutFileName.RowCount = 1;
@@ -166,19 +170,19 @@
             // txtContents
             // 
             txtContents.Dock = DockStyle.Fill;
-            txtContents.Location = new Point(2, 397);
+            txtContents.Location = new Point(2, 407);
             txtContents.Margin = new Padding(2);
             txtContents.Multiline = true;
             txtContents.Name = "txtContents";
             txtContents.ReadOnly = true;
             txtContents.ScrollBars = ScrollBars.Vertical;
-            txtContents.Size = new Size(600, 207);
+            txtContents.Size = new Size(600, 197);
             txtContents.TabIndex = 10;
             // 
             // lblContents
             // 
             lblContents.AutoSize = true;
-            lblContents.Location = new Point(2, 365);
+            lblContents.Location = new Point(2, 375);
             lblContents.Margin = new Padding(2, 0, 2, 0);
             lblContents.Name = "lblContents";
             lblContents.Size = new Size(70, 20);
@@ -207,11 +211,12 @@
             tableLayoutRight.Controls.Add(txtContents, 0, 6);
             tableLayoutRight.Controls.Add(lblContents, 0, 5);
             tableLayoutRight.Controls.Add(panelYaml, 0, 3);
+            tableLayoutRight.Controls.Add(flowLayoutLanguages, 0, 0);
             tableLayoutRight.Dock = DockStyle.Fill;
             tableLayoutRight.Location = new Point(0, 0);
             tableLayoutRight.Name = "tableLayoutRight";
             tableLayoutRight.RowCount = 8;
-            tableLayoutRight.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
+            tableLayoutRight.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
             tableLayoutRight.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutRight.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tableLayoutRight.RowStyles.Add(new RowStyle(SizeType.Absolute, 250F));
@@ -239,11 +244,43 @@
             // 
             // panelYaml
             // 
-            panelYaml.Dock = DockStyle.Fill;
-            panelYaml.Location = new Point(3, 98);
+            panelYaml.Anchor = AnchorStyles.Left;
+            panelYaml.Location = new Point(3, 108);
             panelYaml.Name = "panelYaml";
             panelYaml.Size = new Size(598, 244);
             panelYaml.TabIndex = 17;
+            // 
+            // flowLayoutLanguages
+            // 
+            flowLayoutLanguages.Controls.Add(lblLang);
+            flowLayoutLanguages.Controls.Add(cmbLang);
+            flowLayoutLanguages.Dock = DockStyle.Fill;
+            flowLayoutLanguages.Location = new Point(3, 3);
+            flowLayoutLanguages.Name = "flowLayoutLanguages";
+            flowLayoutLanguages.Size = new Size(598, 39);
+            flowLayoutLanguages.TabIndex = 18;
+            // 
+            // lblLang
+            // 
+            lblLang.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            lblLang.AutoSize = true;
+            lblLang.Location = new Point(3, 7);
+            lblLang.Name = "lblLang";
+            lblLang.Size = new Size(77, 20);
+            lblLang.TabIndex = 0;
+            lblLang.Text = "Language:";
+            // 
+            // cmbLang
+            // 
+            cmbLang.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            cmbLang.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbLang.FormattingEnabled = true;
+            cmbLang.Items.AddRange(new object[] { "EN - English", "RO - Romanian" });
+            cmbLang.Location = new Point(86, 3);
+            cmbLang.Name = "cmbLang";
+            cmbLang.Size = new Size(151, 28);
+            cmbLang.TabIndex = 1;
+            cmbLang.SelectedIndexChanged += cmbLang_SelectedIndexChanged;
             // 
             // tableLayoutLeft
             // 
@@ -253,7 +290,7 @@
             tableLayoutLeft.Controls.Add(tableLayoutPanel2, 0, 4);
             tableLayoutLeft.Controls.Add(lblFolder, 0, 2);
             tableLayoutLeft.Controls.Add(txtFolder, 0, 3);
-            tableLayoutLeft.Controls.Add(label1, 0, 0);
+            tableLayoutLeft.Controls.Add(lblListOfFiles, 0, 0);
             tableLayoutLeft.Controls.Add(flowLayoutCheckboxes, 0, 5);
             tableLayoutLeft.Dock = DockStyle.Fill;
             tableLayoutLeft.Location = new Point(0, 0);
@@ -296,15 +333,15 @@
             btnClearList.UseVisualStyleBackColor = true;
             btnClearList.Click += btnClearList_Click;
             // 
-            // label1
+            // lblListOfFiles
             // 
-            label1.Anchor = AnchorStyles.Left;
-            label1.AutoSize = true;
-            label1.Location = new Point(3, 7);
-            label1.Name = "label1";
-            label1.Size = new Size(83, 20);
-            label1.TabIndex = 17;
-            label1.Text = "List of files:";
+            lblListOfFiles.Anchor = AnchorStyles.Left;
+            lblListOfFiles.AutoSize = true;
+            lblListOfFiles.Location = new Point(3, 7);
+            lblListOfFiles.Name = "lblListOfFiles";
+            lblListOfFiles.Size = new Size(83, 20);
+            lblListOfFiles.TabIndex = 17;
+            lblListOfFiles.Text = "List of files:";
             // 
             // flowLayoutCheckboxes
             // 
@@ -362,6 +399,8 @@
             tableLayoutRight.ResumeLayout(false);
             tableLayoutRight.PerformLayout();
             tableLayoutPanel1.ResumeLayout(false);
+            flowLayoutLanguages.ResumeLayout(false);
+            flowLayoutLanguages.PerformLayout();
             tableLayoutLeft.ResumeLayout(false);
             tableLayoutLeft.PerformLayout();
             tableLayoutPanel2.ResumeLayout(false);
@@ -393,9 +432,12 @@
         private TableLayoutPanel tableLayoutPanel2;
         private Button btnClearList;
         private Panel panelYaml;
-        private Label label1;
+        private Label lblListOfFiles;
         private FlowLayoutPanel flowLayoutCheckboxes;
         private CheckBox chkIncludeSubfolders;
         private SplitContainer splitContainerMain;
+        private FlowLayoutPanel flowLayoutLanguages;
+        private Label lblLang;
+        private ComboBox cmbLang;
     }
 }

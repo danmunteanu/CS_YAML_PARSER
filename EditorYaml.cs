@@ -89,5 +89,21 @@ namespace C__Yaml_Parser
         {
             Clear();
         }
+
+        public void UpdateLocale()
+        {
+            //  Fields
+            lblTitle.Text = Locale.LBL_YAML_TITLE;
+            lblAuthor.Text = Locale.LBL_YAML_AUTHOR;
+            lblLayout.Text = Locale.LBL_YAML_LAYOUT;
+            lblDate.Text = Locale.LBL_YAML_DATE;
+
+            //  Categories
+            lblCategs.Text = Locale.LBL_YAML_CATEGORIES;
+
+            //  Buttons
+            btnDefaults.Text = Locale.LBL_YAML_BTN_DEFAULTS;
+            btnClear.Text = Locale.LBL_YAML_BTN_CLEAR;
+        }
     }
 }
