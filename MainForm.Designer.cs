@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             lblFolder = new Label();
             txtFolder = new TextBox();
             btnBrowse = new Button();
@@ -352,6 +353,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1008, 661);
             Controls.Add(splitContainerMain);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(2);
             Name = "frmMain";
             Text = "FrontMatter Loader (YAML)";
