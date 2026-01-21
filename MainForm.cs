@@ -129,7 +129,6 @@ namespace C__Yaml_Parser
 
         private void LoadSelectionData(string fileName)
         {
-            string path = Path.Combine(txtFolder.Text, fileName);
             string contents = txtContents.Text;
 
             _editorYaml.FileName = fileName;
@@ -152,10 +151,7 @@ namespace C__Yaml_Parser
 
                 _editorYaml.LoadDefaults();
             }
-
-
         }
-
 
         private void LoadFileContents(string fileName)
         {
@@ -202,7 +198,7 @@ namespace C__Yaml_Parser
                 return;
             }
 
-            LoadFileContents(fileName);
+            LoadFileContents(selected.ToString());
             LoadSelectionData(fileName);
             ToggleEditors(true);
 
