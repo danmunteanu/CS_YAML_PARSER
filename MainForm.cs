@@ -96,11 +96,14 @@ namespace C__Yaml_Parser
             foreach (FileInfo file in files)
                 listFiles.Items.Add(file.FullName);
 
-            //  load subfolders
-            IEnumerable<DirectoryInfo> subdirs = di.EnumerateDirectories();
-            foreach (DirectoryInfo sdi in subdirs)
+            if (chkIncludeSubfolders.Checked)
             {
-                LoadFilesFromFolder(sdi.FullName);
+                //  load subfolders
+                IEnumerable<DirectoryInfo> subdirs = di.EnumerateDirectories();
+                foreach (DirectoryInfo sdi in subdirs)
+                {
+                    LoadFilesFromFolder(sdi.FullName);
+                }
             }
         }
 

@@ -47,19 +47,22 @@
             tableLayoutPanel2 = new TableLayoutPanel();
             btnClearList = new Button();
             label1 = new Label();
+            flowLayoutCheckboxes = new FlowLayoutPanel();
+            chkIncludeSubfolders = new CheckBox();
             tableLayoutFileName.SuspendLayout();
             tableLayoutMain.SuspendLayout();
             tableLayoutRight.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutLeft.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
+            flowLayoutCheckboxes.SuspendLayout();
             SuspendLayout();
             // 
             // lblFolder
             // 
             lblFolder.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lblFolder.AutoSize = true;
-            lblFolder.Location = new Point(2, 540);
+            lblFolder.Location = new Point(2, 500);
             lblFolder.Margin = new Padding(2, 0, 2, 0);
             lblFolder.Name = "lblFolder";
             lblFolder.Size = new Size(54, 20);
@@ -70,7 +73,7 @@
             // 
             txtFolder.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtFolder.Enabled = false;
-            txtFolder.Location = new Point(2, 566);
+            txtFolder.Location = new Point(2, 526);
             txtFolder.Margin = new Padding(2);
             txtFolder.Name = "txtFolder";
             txtFolder.Size = new Size(438, 27);
@@ -95,7 +98,7 @@
             chkMarkdownAndText.AutoSize = true;
             chkMarkdownAndText.Checked = true;
             chkMarkdownAndText.CheckState = CheckState.Checked;
-            chkMarkdownAndText.Location = new Point(202, 7);
+            chkMarkdownAndText.Location = new Point(162, 3);
             chkMarkdownAndText.Margin = new Padding(2);
             chkMarkdownAndText.Name = "chkMarkdownAndText";
             chkMarkdownAndText.Size = new Size(197, 24);
@@ -113,7 +116,7 @@
             listFiles.Location = new Point(2, 37);
             listFiles.Margin = new Padding(2);
             listFiles.Name = "listFiles";
-            listFiles.Size = new Size(438, 491);
+            listFiles.Size = new Size(438, 451);
             listFiles.TabIndex = 5;
             listFiles.SelectedIndexChanged += listFiles_SelectedIndexChanged;
             listFiles.DragDrop += listFiles_DragDrop;
@@ -262,15 +265,17 @@
             tableLayoutLeft.Controls.Add(lblFolder, 0, 2);
             tableLayoutLeft.Controls.Add(txtFolder, 0, 3);
             tableLayoutLeft.Controls.Add(label1, 0, 0);
+            tableLayoutLeft.Controls.Add(flowLayoutCheckboxes, 0, 5);
             tableLayoutLeft.Dock = DockStyle.Fill;
             tableLayoutLeft.Location = new Point(3, 3);
             tableLayoutLeft.Name = "tableLayoutLeft";
-            tableLayoutLeft.RowCount = 6;
+            tableLayoutLeft.RowCount = 7;
             tableLayoutLeft.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
             tableLayoutLeft.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutLeft.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
             tableLayoutLeft.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutLeft.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
+            tableLayoutLeft.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutLeft.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
             tableLayoutLeft.Size = new Size(442, 655);
             tableLayoutLeft.TabIndex = 14;
@@ -280,12 +285,11 @@
             tableLayoutPanel2.ColumnCount = 3;
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 129F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 35F));
-            tableLayoutPanel2.Controls.Add(chkMarkdownAndText, 1, 0);
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 46F));
             tableLayoutPanel2.Controls.Add(btnBrowse, 0, 0);
             tableLayoutPanel2.Controls.Add(btnClearList, 2, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(3, 603);
+            tableLayoutPanel2.Location = new Point(3, 563);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
@@ -294,11 +298,12 @@
             // 
             // btnClearList
             // 
-            btnClearList.Location = new Point(404, 3);
+            btnClearList.Dock = DockStyle.Fill;
+            btnClearList.Location = new Point(393, 3);
             btnClearList.Name = "btnClearList";
-            btnClearList.Size = new Size(29, 28);
+            btnClearList.Size = new Size(40, 33);
             btnClearList.TabIndex = 0;
-            btnClearList.Text = "X";
+            btnClearList.Text = "🗑️";
             btnClearList.UseVisualStyleBackColor = true;
             btnClearList.Click += btnClearList_Click;
             // 
@@ -311,6 +316,28 @@
             label1.Size = new Size(83, 20);
             label1.TabIndex = 17;
             label1.Text = "List of files:";
+            // 
+            // flowLayoutCheckboxes
+            // 
+            flowLayoutCheckboxes.Controls.Add(chkIncludeSubfolders);
+            flowLayoutCheckboxes.Controls.Add(chkMarkdownAndText);
+            flowLayoutCheckboxes.Dock = DockStyle.Fill;
+            flowLayoutCheckboxes.Location = new Point(3, 608);
+            flowLayoutCheckboxes.Name = "flowLayoutCheckboxes";
+            flowLayoutCheckboxes.Size = new Size(436, 34);
+            flowLayoutCheckboxes.TabIndex = 18;
+            // 
+            // chkIncludeSubfolders
+            // 
+            chkIncludeSubfolders.AutoSize = true;
+            chkIncludeSubfolders.Checked = true;
+            chkIncludeSubfolders.CheckState = CheckState.Checked;
+            chkIncludeSubfolders.Location = new Point(3, 3);
+            chkIncludeSubfolders.Name = "chkIncludeSubfolders";
+            chkIncludeSubfolders.Size = new Size(154, 24);
+            chkIncludeSubfolders.TabIndex = 0;
+            chkIncludeSubfolders.Text = "Include Subfolders";
+            chkIncludeSubfolders.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
@@ -330,7 +357,8 @@
             tableLayoutLeft.ResumeLayout(false);
             tableLayoutLeft.PerformLayout();
             tableLayoutPanel2.ResumeLayout(false);
-            tableLayoutPanel2.PerformLayout();
+            flowLayoutCheckboxes.ResumeLayout(false);
+            flowLayoutCheckboxes.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -355,5 +383,7 @@
         private Button btnClearList;
         private Panel panelYaml;
         private Label label1;
+        private FlowLayoutPanel flowLayoutCheckboxes;
+        private CheckBox chkIncludeSubfolders;
     }
 }
