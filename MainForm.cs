@@ -159,10 +159,10 @@ namespace C__Yaml_Parser
             }
         }
 
-        private void LoadFileContents(string fileName)
+        private void LoadFileContents(string fullFileName)
         {
             txtContents.Clear();
-            txtContents.Text = File.ReadAllText(Path.Combine(txtFolder.Text, fileName));
+            txtContents.Text = File.ReadAllText(fullFileName);
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -223,6 +223,10 @@ namespace C__Yaml_Parser
                 return;
             }
 
+            //  make sure we have a file name
+            if (string.IsNullOrEmpty(txtFileName.Text))
+                return;
+
             //  create the front matter structure
             FrontMatterData fm = new FrontMatterData();
             _editorYaml.SaveData(ref fm);
@@ -234,25 +238,22 @@ namespace C__Yaml_Parser
             var yaml = serializer.Serialize(fm);
 
             //  write to file            
-            if (txtFileName.Text != null && txtFileName.Text != "")
+            if (!Directory.Exists(KTempFolder))
             {
-                if (!Directory.Exists(KTempFolder))
-                {
-                    Directory.CreateDirectory(KTempFolder);
-                }
+                Directory.CreateDirectory(KTempFolder);
+            }
 
-                string fileName = Path.Combine(KTempFolder, txtFileName.Text);
+            string fullFileName = Path.Combine(KTempFolder, txtFileName.Text);
 
-                StreamWriter writer = new StreamWriter(fileName);
-
+            using (StreamWriter writer = new StreamWriter(fullFileName))
+            {
                 writer.WriteLine(KDocStart);
                 writer.WriteLine(yaml);
                 writer.WriteLine(KDocEnd);
                 writer.WriteLine(txtContents.Text);
-
-                writer.Flush();
             }
 
+            MessageBox.Show("File saved successfully.");
         }
 
         private void listFiles_DragEnter(object sender, DragEventArgs e)

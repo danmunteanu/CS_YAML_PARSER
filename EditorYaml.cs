@@ -38,7 +38,19 @@ namespace C__Yaml_Parser
             txtTitle.Text = data.Title;
             txtAuthor.Text = data.Author;
             txtLayout.Text = data.Layout;
-            dpDate.Value = DateTime.Parse(data.Date);
+
+            if (DateTime.TryParseExact(
+                data.Date, KDateMask, null, 
+                System.Globalization.DateTimeStyles.None, 
+                out DateTime parsedDate))
+            {
+                dpDate.Value = parsedDate;
+            }
+            else
+            {
+                DateTime.TryParse(data.Date, out DateTime fallbackDate);
+                dpDate.Value = fallbackDate != DateTime.MinValue ? fallbackDate : DateTime.Now;
+            }
 
             chkListCategs.Items.Clear();
             if (data.Categories != null)
@@ -57,7 +69,7 @@ namespace C__Yaml_Parser
             fm.Title = txtTitle.Text;
             fm.Author = txtAuthor.Text;
             fm.Layout = txtLayout.Text;
-            fm.Date = dpDate.Value.ToString();
+            fm.Date = dpDate.Value.ToString(KDateMask);
 
             //  save categories
             List<string> catList = new List<string>();
