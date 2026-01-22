@@ -381,12 +381,15 @@ namespace C__Yaml_Parser
 
         private void UpdateLocale()
         {
+            this.Text = Locale.APPLICATION_NAME;
+
             lblListOfFiles.Text = Locale.LBL_LIST_OF_FILES;
             lblFileName.Text = Locale.LBL_FILE_NAME;
             lblContents.Text = Locale.LBL_CONTENTS;
             btnBrowse.Text = Locale.BTN_ADD_FOLDER;
             chkIncludeSubfolders.Text = Locale.CHK_INCLUDE_SUBFOLDERS;
             chkMarkdownAndText.Text = Locale.CHK_MD_AND_TEXT;
+            lblLang.Text = Locale.LBL_LANGUAGE;
 
             _editorYaml.UpdateLocale();
 

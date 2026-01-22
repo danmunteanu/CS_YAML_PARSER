@@ -41,11 +41,10 @@
             lblContents = new Label();
             btnSave = new Button();
             tableLayoutRight = new TableLayoutPanel();
-            tableLayoutPanel1 = new TableLayoutPanel();
-            panelYaml = new Panel();
-            flowLayoutLanguages = new FlowLayoutPanel();
-            lblLang = new Label();
+            tableLayoutSave = new TableLayoutPanel();
             cmbLang = new ComboBox();
+            lblLang = new Label();
+            panelYaml = new Panel();
             tableLayoutLeft = new TableLayoutPanel();
             tableLayoutPanel2 = new TableLayoutPanel();
             btnClearList = new Button();
@@ -55,8 +54,7 @@
             splitContainerMain = new SplitContainer();
             tableLayoutFileName.SuspendLayout();
             tableLayoutRight.SuspendLayout();
-            tableLayoutPanel1.SuspendLayout();
-            flowLayoutLanguages.SuspendLayout();
+            tableLayoutSave.SuspendLayout();
             tableLayoutLeft.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             flowLayoutCheckboxes.SuspendLayout();
@@ -159,7 +157,7 @@
             tableLayoutFileName.Controls.Add(lblFileName, 0, 0);
             tableLayoutFileName.Controls.Add(txtFileName, 1, 0);
             tableLayoutFileName.Dock = DockStyle.Fill;
-            tableLayoutFileName.Location = new Point(2, 47);
+            tableLayoutFileName.Location = new Point(2, 37);
             tableLayoutFileName.Margin = new Padding(2);
             tableLayoutFileName.Name = "tableLayoutFileName";
             tableLayoutFileName.RowCount = 1;
@@ -170,19 +168,19 @@
             // txtContents
             // 
             txtContents.Dock = DockStyle.Fill;
-            txtContents.Location = new Point(2, 407);
+            txtContents.Location = new Point(2, 397);
             txtContents.Margin = new Padding(2);
             txtContents.Multiline = true;
             txtContents.Name = "txtContents";
             txtContents.ReadOnly = true;
             txtContents.ScrollBars = ScrollBars.Vertical;
-            txtContents.Size = new Size(600, 197);
+            txtContents.Size = new Size(600, 207);
             txtContents.TabIndex = 10;
             // 
             // lblContents
             // 
             lblContents.AutoSize = true;
-            lblContents.Location = new Point(2, 375);
+            lblContents.Location = new Point(2, 365);
             lblContents.Margin = new Padding(2, 0, 2, 0);
             lblContents.Name = "lblContents";
             lblContents.Size = new Size(70, 20);
@@ -206,17 +204,16 @@
             // 
             tableLayoutRight.ColumnCount = 1;
             tableLayoutRight.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutRight.Controls.Add(tableLayoutPanel1, 0, 7);
+            tableLayoutRight.Controls.Add(tableLayoutSave, 0, 7);
             tableLayoutRight.Controls.Add(tableLayoutFileName, 0, 1);
             tableLayoutRight.Controls.Add(txtContents, 0, 6);
             tableLayoutRight.Controls.Add(lblContents, 0, 5);
             tableLayoutRight.Controls.Add(panelYaml, 0, 3);
-            tableLayoutRight.Controls.Add(flowLayoutLanguages, 0, 0);
             tableLayoutRight.Dock = DockStyle.Fill;
             tableLayoutRight.Location = new Point(0, 0);
             tableLayoutRight.Name = "tableLayoutRight";
             tableLayoutRight.RowCount = 8;
-            tableLayoutRight.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
+            tableLayoutRight.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
             tableLayoutRight.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutRight.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tableLayoutRight.RowStyles.Add(new RowStyle(SizeType.Absolute, 250F));
@@ -227,48 +224,23 @@
             tableLayoutRight.Size = new Size(604, 661);
             tableLayoutRight.TabIndex = 15;
             // 
-            // tableLayoutPanel1
+            // tableLayoutSave
             // 
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 141F));
-            tableLayoutPanel1.Controls.Add(btnSave, 1, 0);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(3, 609);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(598, 49);
-            tableLayoutPanel1.TabIndex = 16;
-            // 
-            // panelYaml
-            // 
-            panelYaml.Anchor = AnchorStyles.Left;
-            panelYaml.Location = new Point(3, 108);
-            panelYaml.Name = "panelYaml";
-            panelYaml.Size = new Size(598, 244);
-            panelYaml.TabIndex = 17;
-            // 
-            // flowLayoutLanguages
-            // 
-            flowLayoutLanguages.Controls.Add(lblLang);
-            flowLayoutLanguages.Controls.Add(cmbLang);
-            flowLayoutLanguages.Dock = DockStyle.Fill;
-            flowLayoutLanguages.Location = new Point(3, 3);
-            flowLayoutLanguages.Name = "flowLayoutLanguages";
-            flowLayoutLanguages.Size = new Size(598, 39);
-            flowLayoutLanguages.TabIndex = 18;
-            // 
-            // lblLang
-            // 
-            lblLang.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            lblLang.AutoSize = true;
-            lblLang.Location = new Point(3, 7);
-            lblLang.Name = "lblLang";
-            lblLang.Size = new Size(77, 20);
-            lblLang.TabIndex = 0;
-            lblLang.Text = "Language:";
+            tableLayoutSave.ColumnCount = 4;
+            tableLayoutSave.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 173F));
+            tableLayoutSave.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 141F));
+            tableLayoutSave.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutSave.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 141F));
+            tableLayoutSave.Controls.Add(cmbLang, 1, 0);
+            tableLayoutSave.Controls.Add(lblLang, 0, 0);
+            tableLayoutSave.Controls.Add(btnSave, 3, 0);
+            tableLayoutSave.Dock = DockStyle.Fill;
+            tableLayoutSave.Location = new Point(3, 609);
+            tableLayoutSave.Name = "tableLayoutSave";
+            tableLayoutSave.RowCount = 1;
+            tableLayoutSave.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutSave.Size = new Size(598, 49);
+            tableLayoutSave.TabIndex = 16;
             // 
             // cmbLang
             // 
@@ -276,11 +248,29 @@
             cmbLang.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbLang.FormattingEnabled = true;
             cmbLang.Items.AddRange(new object[] { "EN - English", "RO - Romanian" });
-            cmbLang.Location = new Point(86, 3);
+            cmbLang.Location = new Point(176, 10);
             cmbLang.Name = "cmbLang";
-            cmbLang.Size = new Size(151, 28);
+            cmbLang.Size = new Size(135, 28);
             cmbLang.TabIndex = 1;
             cmbLang.SelectedIndexChanged += cmbLang_SelectedIndexChanged;
+            // 
+            // lblLang
+            // 
+            lblLang.Anchor = AnchorStyles.Right;
+            lblLang.AutoSize = true;
+            lblLang.Location = new Point(12, 14);
+            lblLang.Name = "lblLang";
+            lblLang.Size = new Size(158, 20);
+            lblLang.TabIndex = 0;
+            lblLang.Text = "Application Language:";
+            // 
+            // panelYaml
+            // 
+            panelYaml.Anchor = AnchorStyles.Left;
+            panelYaml.Location = new Point(3, 98);
+            panelYaml.Name = "panelYaml";
+            panelYaml.Size = new Size(598, 244);
+            panelYaml.TabIndex = 17;
             // 
             // tableLayoutLeft
             // 
@@ -398,9 +388,8 @@
             tableLayoutFileName.PerformLayout();
             tableLayoutRight.ResumeLayout(false);
             tableLayoutRight.PerformLayout();
-            tableLayoutPanel1.ResumeLayout(false);
-            flowLayoutLanguages.ResumeLayout(false);
-            flowLayoutLanguages.PerformLayout();
+            tableLayoutSave.ResumeLayout(false);
+            tableLayoutSave.PerformLayout();
             tableLayoutLeft.ResumeLayout(false);
             tableLayoutLeft.PerformLayout();
             tableLayoutPanel2.ResumeLayout(false);
@@ -428,7 +417,7 @@
         private Button btnSave;
         private TableLayoutPanel tableLayoutLeft;
         private TableLayoutPanel tableLayoutRight;
-        private TableLayoutPanel tableLayoutPanel1;
+        private TableLayoutPanel tableLayoutSave;
         private TableLayoutPanel tableLayoutPanel2;
         private Button btnClearList;
         private Panel panelYaml;
@@ -436,7 +425,6 @@
         private FlowLayoutPanel flowLayoutCheckboxes;
         private CheckBox chkIncludeSubfolders;
         private SplitContainer splitContainerMain;
-        private FlowLayoutPanel flowLayoutLanguages;
         private Label lblLang;
         private ComboBox cmbLang;
     }

@@ -133,7 +133,7 @@
     <value>Folder:</value>
   </data>
   <data name="LBL_LANGUAGE" xml:space="preserve">
-    <value>Language:</value>
+    <value>Application Language:</value>
   </data>
   <data name="LBL_LIST_OF_FILES" xml:space="preserve">
     <value>List of files:</value>
@@ -164,5 +164,8 @@
   </data>
   <data name="LBL_YAML_CATEGORIES" xml:space="preserve">
     <value>Categories</value>
+  </data>
+  <data name="APPLICATION_NAME" xml:space="preserve">
+    <value>CS Yaml Parser</value>
   </data>
 </root>

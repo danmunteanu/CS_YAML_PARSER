@@ -133,7 +133,7 @@
     <value>Director:</value>
   </data>
   <data name="LBL_LANGUAGE" xml:space="preserve">
-    <value>Limba:</value>
+    <value>Limba Aplicatie:</value>
   </data>
   <data name="LBL_LIST_OF_FILES" xml:space="preserve">
     <value>Lista fisiere:</value>
@@ -164,5 +164,8 @@
   </data>
   <data name="LBL_YAML_CATEGORIES" xml:space="preserve">
     <value>Categorii</value>
+  </data>
+  <data name="APPLICATION_NAME" xml:space="preserve">
+    <value>Procesor YAML</value>
   </data>
 </root>

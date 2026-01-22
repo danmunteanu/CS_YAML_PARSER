@@ -61,6 +61,15 @@ namespace C__Yaml_Parser {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CS Yaml Parser.
+        /// </summary>
+        internal static string APPLICATION_NAME {
+            get {
+                return ResourceManager.GetString("APPLICATION_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ADD FOLDER.
         /// </summary>
         internal static string BTN_ADD_FOLDER {
@@ -124,7 +133,7 @@ namespace C__Yaml_Parser {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Language:.
+        ///   Looks up a localized string similar to Application Language:.
         /// </summary>
         internal static string LBL_LANGUAGE {
             get {
